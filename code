@@ -1,0 +1,25 @@
+import string
+import random
+
+class URLShortener:
+    def __init__(self):
+        self.urls = {}
+        self.characters = string.ascii_letters + string.digits
+        self.base_url = "https://shorturl.com/"
+
+    def shorten_url(self, original_url):
+        short_url = self.generate_short_url()
+        self.urls[short_url] = original_url
+        return self.base_url + short_url
+
+    def generate_short_url(self):
+        while True:
+            short_url = ''.join(random.choice(self.characters) for _ in range(6))
+            if short_url not in self.urls:
+                return short_url
+
+    def get_original_url(self, short_url):
+        if short_url in self.urls:
+            return self.urls[short_url]
+        else:
+            return None
